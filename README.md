@@ -1,9 +1,14 @@
-docker-compose -f docker-compose.yaml up -d
+### Запустить стэнд
+
+``` docker-compose -f docker-compose.yaml up -d ```
 
 ### Проверка конфигурации PostgreSQL (wal_level)
 
 ``` 
 docker-compose  exec postgres env PGOPTIONS="--search_path=inventory" bash -c 'psql -U $POSTGRES_USER postgres' 
+```
+```
+\x auto
 ```
 ```
 SELECT  
@@ -23,6 +28,7 @@ WHERE name IN ('wal_level','max_wal_senders','max_replication_slots');
 ``` curl  http://localhost:8083/connectors/inventory-connector/status | jq ```
 
 ### Проверить слот репликации, должен создастся т к права у коннектора на БД - суперюзер.
+
 ```
 SELECT * 
 FROM pg_replication_slots;
@@ -65,6 +71,7 @@ docker-compose  exec kafka /kafka/bin/kafka-console-consumer.sh \
     --property print.key=true \
     --topic dbserver1.inventory.customers
 ```
+### Создать, обновить удалить записи. Посмотреть что быдет в сообщениях kafka
 ```
 INSERT INTO customers VALUES (default,'XXXXX','XXXX','sally.thomas@acme1.com');
 DELETE FROM customers WHERE id=1006;
