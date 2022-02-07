@@ -64,18 +64,10 @@ docker-compose  exec kafka /kafka/bin/kafka-console-consumer.sh \
     --from-beginning \
     --property print.key=true \
     --topic dbserver1.inventory.customers
-
+```
+```
 INSERT INTO customers VALUES (default,'XXXXX','XXXX','sally.thomas@acme1.com');
 DELETE FROM customers WHERE id=1006;
 UPDATE customers SET  first_name='John' WHERE id=1003;
 ```
-# Start Postgres connector
-curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @register-postgres.json
-
-# Consume messages from a Debezium topic
-docker-compose  exec kafka /kafka/bin/kafka-console-consumer.sh \
-    --bootstrap-server kafka:9092 \
-    --from-beginning \
-    --property print.key=true \
-    --topic dbserver1.inventory.customers
 
