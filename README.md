@@ -78,3 +78,7 @@ DELETE FROM customers WHERE id=1006;
 UPDATE customers SET  first_name='John' WHERE id=1003;
 ```
 
+### Удалить слот репликации
+```
+select pg_drop_replication_slot('slot_name');
+```
